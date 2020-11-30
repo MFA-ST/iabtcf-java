@@ -20,32 +20,22 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import static com.iabtcf.utils.FieldDefs.V1_CMP_ID;
-import static com.iabtcf.utils.FieldDefs.V1_CMP_VERSION;
-import static com.iabtcf.utils.FieldDefs.V1_CONSENT_LANGUAGE;
-import static com.iabtcf.utils.FieldDefs.V1_CONSENT_SCREEN;
-import static com.iabtcf.utils.FieldDefs.V1_CREATED;
-import static com.iabtcf.utils.FieldDefs.V1_LAST_UPDATED;
-import static com.iabtcf.utils.FieldDefs.V1_PURPOSES_ALLOW;
-import static com.iabtcf.utils.FieldDefs.V1_VENDOR_BITRANGE_FIELD;
-import static com.iabtcf.utils.FieldDefs.V1_VENDOR_LIST_VERSION;
-import static com.iabtcf.utils.FieldDefs.V1_VENDOR_MAX_VENDOR_ID;
-import static com.iabtcf.utils.FieldDefs.V1_VERSION;
-
-import org.threeten.bp.Instant;
-import java.util.BitSet;
-import java.util.List;
-import java.util.Objects;
-import java8.util.Optional;
-
 import com.iabtcf.exceptions.InvalidRangeFieldException;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.utils.FieldDefs;
 import com.iabtcf.utils.IntIterable;
 import com.iabtcf.v2.PublisherRestriction;
+import java8.util.Optional;
+import org.threeten.bp.Instant;
 
-class TCStringV1 implements TCString {
+import java.util.BitSet;
+import java.util.List;
+import java.util.Objects;
+
+import static com.iabtcf.utils.FieldDefs.*;
+
+class TCStringV1 extends TCString {
 
     private final BitReader bbv;
 

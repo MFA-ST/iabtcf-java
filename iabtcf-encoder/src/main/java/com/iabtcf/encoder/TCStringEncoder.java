@@ -20,54 +20,25 @@ package com.iabtcf.encoder;
  * #L%
  */
 
-import static com.iabtcf.encoder.Bounds.checkBounds;
-import static com.iabtcf.encoder.Bounds.checkBoundsBits;
-import static com.iabtcf.utils.FieldDefs.CORE_CMP_ID;
-import static com.iabtcf.utils.FieldDefs.CORE_CMP_VERSION;
-import static com.iabtcf.utils.FieldDefs.CORE_CONSENT_LANGUAGE;
-import static com.iabtcf.utils.FieldDefs.CORE_CONSENT_SCREEN;
-import static com.iabtcf.utils.FieldDefs.CORE_CREATED;
-import static com.iabtcf.utils.FieldDefs.CORE_IS_SERVICE_SPECIFIC;
-import static com.iabtcf.utils.FieldDefs.CORE_LAST_UPDATED;
-import static com.iabtcf.utils.FieldDefs.CORE_PUBLISHER_CC;
-import static com.iabtcf.utils.FieldDefs.CORE_PURPOSES_CONSENT;
-import static com.iabtcf.utils.FieldDefs.CORE_PURPOSES_LI_TRANSPARENCY;
-import static com.iabtcf.utils.FieldDefs.CORE_PURPOSE_ONE_TREATMENT;
-import static com.iabtcf.utils.FieldDefs.CORE_SPECIAL_FEATURE_OPT_INS;
-import static com.iabtcf.utils.FieldDefs.CORE_TCF_POLICY_VERSION;
-import static com.iabtcf.utils.FieldDefs.CORE_USE_NON_STANDARD_STOCKS;
-import static com.iabtcf.utils.FieldDefs.CORE_VENDOR_LIST_VERSION;
-import static com.iabtcf.utils.FieldDefs.CORE_VERSION;
-import static com.iabtcf.utils.FieldDefs.OOB_SEGMENT_TYPE;
-import static com.iabtcf.utils.FieldDefs.PPTC_NUM_CUSTOM_PURPOSES;
-import static com.iabtcf.utils.FieldDefs.PPTC_PUB_PURPOSES_CONSENT;
-import static com.iabtcf.utils.FieldDefs.PPTC_PUB_PURPOSES_LI_TRANSPARENCY;
-import static com.iabtcf.utils.FieldDefs.PPTC_SEGMENT_TYPE;
-import static com.iabtcf.utils.FieldDefs.V1_CMP_ID;
-import static com.iabtcf.utils.FieldDefs.V1_CMP_VERSION;
-import static com.iabtcf.utils.FieldDefs.V1_CONSENT_LANGUAGE;
-import static com.iabtcf.utils.FieldDefs.V1_CONSENT_SCREEN;
-import static com.iabtcf.utils.FieldDefs.V1_CREATED;
-import static com.iabtcf.utils.FieldDefs.V1_LAST_UPDATED;
-import static com.iabtcf.utils.FieldDefs.V1_PURPOSES_ALLOW;
-import static com.iabtcf.utils.FieldDefs.V1_VENDOR_LIST_VERSION;
-import static com.iabtcf.utils.FieldDefs.V1_VERSION;
-
-import java.time.Clock;
-import org.threeten.bp.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import com.iabtcf.decoder.TCString;
 import com.iabtcf.encoder.exceptions.ValueOverflowException;
 import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.utils.FieldDefs;
 import com.iabtcf.utils.IntIterable;
 import com.iabtcf.v2.SegmentType;
+import java8.util.stream.Collectors;
+import java8.util.stream.Stream;
+import org.threeten.bp.Instant;
+
+import java.time.Clock;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
+import static com.iabtcf.encoder.Bounds.checkBounds;
+import static com.iabtcf.encoder.Bounds.checkBoundsBits;
+import static com.iabtcf.utils.FieldDefs.*;
 
 public interface TCStringEncoder {
 

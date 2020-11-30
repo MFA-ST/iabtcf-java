@@ -153,8 +153,8 @@ public enum FieldDefs {
         }
     });
 
-    private OffsetSupplier offset;
-    private LengthSupplier length;
+    private final OffsetSupplier offset;
+    private final LengthSupplier length;
     private volatile boolean isDynamic = false;
     private volatile boolean isDynamicInit = false;
 
@@ -235,8 +235,7 @@ public enum FieldDefs {
      *
      * Dynamic fields are not cached at the enum level and are instead resolved through the BitReader.
      */
-    private static abstract class MemoizingFunction
-            implements LengthSupplier, OffsetSupplier, Function<BitReader, Integer> {
+    private static abstract class MemoizingFunction extends OffsetSupplier implements Function<BitReader,Integer>{
         private volatile boolean dynamicInitialized = false;
         private volatile boolean isDynamic = false;
         private volatile Integer value;
@@ -269,12 +268,12 @@ public enum FieldDefs {
         }
     }
 
-    private interface OffsetSupplier extends Function<BitReader, Integer> {
+    private static class OffsetSupplier implements Function<BitReader, Integer> {
 
         /**
          * This is used when we don't want a field to support offsets.
          */
-        OffsetSupplier NOT_SUPPORTED = new OffsetSupplier() {
+        static OffsetSupplier NOT_SUPPORTED = new OffsetSupplier() {
 
             @Override
             public Integer apply(BitReader t) {
@@ -290,7 +289,7 @@ public enum FieldDefs {
         /**
          * A constant offset for static fields.
          */
-        static OffsetSupplier constant(int offset) {
+        static OffsetSupplier constant(final int offset) {
             return new OffsetSupplier() {
 
                 @Override
@@ -343,15 +342,22 @@ public enum FieldDefs {
             };
         }
 
-        boolean isDynamic();
+        boolean isDynamic() {
+            return false;
+        }
+
+        @Override
+        public Integer apply(BitReader bitReader) {
+            return null;
+        }
     }
 
-    private interface LengthSupplier extends Function<BitReader, Integer> {
+    private static class LengthSupplier implements Function<BitReader, Integer> {
 
         /**
          * A constant length for static fields.
          */
-        static LengthSupplier constant(int length) {
+        static LengthSupplier constant(final int length) {
             return new LengthSupplier() {
 
                 @Override
@@ -366,7 +372,14 @@ public enum FieldDefs {
             };
         }
 
-        boolean isDynamic();
+        boolean isDynamic() {
+            return false;
+        }
+
+        @Override
+        public Integer apply(BitReader bitReader) {
+            return null;
+        }
     }
 
     /**
@@ -386,7 +399,7 @@ public enum FieldDefs {
             return cptr - numPubRestrictionsOffset;
         }
 
-        public static LengthSupplier lengthSupplier(FieldDefs numPubRestrictionsOffset) {
+        public static LengthSupplier lengthSupplier(final FieldDefs numPubRestrictionsOffset) {
             return new LengthSupplier() {
                 @Override
                 public Integer apply(BitReader t) {
@@ -432,7 +445,7 @@ public enum FieldDefs {
             }
         }
 
-        public static LengthSupplier lengthSupplier(FieldDefs isRangeEncoding, FieldDefs maxVendorId) {
+        public static LengthSupplier lengthSupplier(final FieldDefs isRangeEncoding, final FieldDefs maxVendorId) {
             return new LengthSupplier() {
                 @Override
                 public Integer apply(BitReader t) {

@@ -20,22 +20,18 @@ package com.iabtcf.encoder;
  * #L%
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.threeten.bp.Instant;
-import javax.xml.bind.DatatypeConverter;
-import java.util.Random;
-import java.util.stream.Collectors;
-
-import org.junit.Test;
-
 import com.iabtcf.decoder.TCString;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.utils.FieldDefs;
 import com.iabtcf.utils.IntIterable;
+import java8.util.stream.Collectors;
+import org.junit.Test;
+import org.threeten.bp.Instant;
+
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public class VendorFieldEncoderTest {
     private static final Random RAND = new Random(312L);

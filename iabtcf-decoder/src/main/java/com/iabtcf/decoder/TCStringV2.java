@@ -20,48 +20,6 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import static com.iabtcf.utils.FieldDefs.AV_MAX_VENDOR_ID;
-import static com.iabtcf.utils.FieldDefs.AV_VENDOR_BITRANGE_FIELD;
-import static com.iabtcf.utils.FieldDefs.CORE_CMP_ID;
-import static com.iabtcf.utils.FieldDefs.CORE_CMP_VERSION;
-import static com.iabtcf.utils.FieldDefs.CORE_CONSENT_LANGUAGE;
-import static com.iabtcf.utils.FieldDefs.CORE_CONSENT_SCREEN;
-import static com.iabtcf.utils.FieldDefs.CORE_CREATED;
-import static com.iabtcf.utils.FieldDefs.CORE_IS_SERVICE_SPECIFIC;
-import static com.iabtcf.utils.FieldDefs.CORE_LAST_UPDATED;
-import static com.iabtcf.utils.FieldDefs.CORE_NUM_PUB_RESTRICTION;
-import static com.iabtcf.utils.FieldDefs.CORE_PUBLISHER_CC;
-import static com.iabtcf.utils.FieldDefs.CORE_PUB_RESTRICTION_ENTRY;
-import static com.iabtcf.utils.FieldDefs.CORE_PURPOSES_CONSENT;
-import static com.iabtcf.utils.FieldDefs.CORE_PURPOSES_LI_TRANSPARENCY;
-import static com.iabtcf.utils.FieldDefs.CORE_PURPOSE_ONE_TREATMENT;
-import static com.iabtcf.utils.FieldDefs.CORE_SPECIAL_FEATURE_OPT_INS;
-import static com.iabtcf.utils.FieldDefs.CORE_TCF_POLICY_VERSION;
-import static com.iabtcf.utils.FieldDefs.CORE_USE_NON_STANDARD_STOCKS;
-import static com.iabtcf.utils.FieldDefs.CORE_VENDOR_BITRANGE_FIELD;
-import static com.iabtcf.utils.FieldDefs.CORE_VENDOR_LIST_VERSION;
-import static com.iabtcf.utils.FieldDefs.CORE_VENDOR_LI_BITRANGE_FIELD;
-import static com.iabtcf.utils.FieldDefs.CORE_VENDOR_LI_MAX_VENDOR_ID;
-import static com.iabtcf.utils.FieldDefs.CORE_VENDOR_MAX_VENDOR_ID;
-import static com.iabtcf.utils.FieldDefs.CORE_VERSION;
-import static com.iabtcf.utils.FieldDefs.DV_MAX_VENDOR_ID;
-import static com.iabtcf.utils.FieldDefs.DV_VENDOR_BITRANGE_FIELD;
-import static com.iabtcf.utils.FieldDefs.OOB_SEGMENT_TYPE;
-import static com.iabtcf.utils.FieldDefs.PPTC_CUSTOM_PURPOSES_CONSENT;
-import static com.iabtcf.utils.FieldDefs.PPTC_CUSTOM_PURPOSES_LI_TRANSPARENCY;
-import static com.iabtcf.utils.FieldDefs.PPTC_PUB_PURPOSES_CONSENT;
-import static com.iabtcf.utils.FieldDefs.PPTC_PUB_PURPOSES_LI_TRANSPARENCY;
-
-import org.threeten.bp.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
-import java8.util.Optional;
-
 import com.iabtcf.exceptions.InvalidRangeFieldException;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.BitSetIntIterable;
@@ -70,8 +28,15 @@ import com.iabtcf.utils.IntIterable;
 import com.iabtcf.v2.PublisherRestriction;
 import com.iabtcf.v2.RestrictionType;
 import com.iabtcf.v2.SegmentType;
+import java8.util.Optional;
+import java8.util.function.Function;
+import org.threeten.bp.Instant;
 
-class TCStringV2 implements TCString {
+import java.util.*;
+
+import static com.iabtcf.utils.FieldDefs.*;
+
+class TCStringV2 extends TCString {
 
     private int version;
     private Instant consentRecordCreated;
@@ -170,11 +135,16 @@ class TCStringV2 implements TCString {
      *
      * @throws InvalidRangeFieldException
      */
-    static int vendorIdsFromRange(BitReader bbv, BitSet bs, int numberOfVendorEntriesOffset,
-            Optional<FieldDefs> maxVendor) {
+    static int vendorIdsFromRange(final BitReader bbv, BitSet bs, int numberOfVendorEntriesOffset,
+                                  Optional<FieldDefs> maxVendor) {
         int numberOfVendorEntries = bbv.readBits12(numberOfVendorEntriesOffset);
         int offset = numberOfVendorEntriesOffset + FieldDefs.NUM_ENTRIES.getLength(bbv);
-        int maxV = maxVendor.map(maxVF -> bbv.readBits16(maxVF)).orElse(Integer.MAX_VALUE);
+        int maxV = maxVendor.map(new Function<FieldDefs, Integer>() {
+            @Override
+            public Integer apply(FieldDefs maxVF) {
+                return bbv.readBits16(maxVF);
+            }
+        }).orElse(Integer.MAX_VALUE);
 
         for (int j = 0; j < numberOfVendorEntries; j++) {
             boolean isRangeEntry = bbv.readBits1(offset++);

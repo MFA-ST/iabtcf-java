@@ -20,16 +20,16 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import org.threeten.bp.Instant;
-import java.util.List;
-
 import com.iabtcf.exceptions.ByteParseException;
 import com.iabtcf.exceptions.TCStringDecodeException;
 import com.iabtcf.exceptions.UnsupportedVersionException;
 import com.iabtcf.utils.IntIterable;
 import com.iabtcf.v2.PublisherRestriction;
+import org.threeten.bp.Instant;
 
-public interface TCString {
+import java.util.List;
+
+public abstract class TCString {
 
     /**
      * Decodes an iabtcf compliant encoded string.
@@ -46,136 +46,161 @@ public interface TCString {
     /**
      * Version number of the encoding format
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return the version number
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    int getVersion();
+    int getVersion() {
+        return 0;
+    }
 
     /**
      * Epoch deciseconds (0.1 of a second) when this TC String was first created
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return timestamp the record was first created
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    Instant getCreated();
+    Instant getCreated() {
+        return Instant.MIN;
+    }
 
     /**
      * Epoch deciseconds (0.1 of a second) when TC String was last updated
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return timestamp record was last updated
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    Instant getLastUpdated();
+    Instant getLastUpdated() {
+        return Instant.MAX;
+    }
 
     /**
      * Consent Management Platform ID that last updated the TC String
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return the Consent Management Platform ID
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    int getCmpId();
+    int getCmpId() {
+        return 0;
+    }
 
     /**
      * Consent Management Platform version of the CMP that last updated this TC String
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return version of the Consent Management Platform that updated this record
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    int getCmpVersion();
+    int getCmpVersion() {
+        return 0;
+    }
 
     /**
-     *
      * CMP Screen number at which consent was given for a user with the CMP that last updated this
      * TC String.
-     *
+     * <p>
      * The number is a CMP internal designation and is CmpVersion specific. The number is used for
      * identifying on which screen a user gave consent as a record.
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return the screen number identifier
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    int getConsentScreen();
+    int getConsentScreen() {
+        return 0;
+    }
 
     /**
      * Two-letter ISO 639-1 language code in which the CMP UI was presented.
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return the language string
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    String getConsentLanguage();
+    String getConsentLanguage() {
+        return "AA";
+    }
 
     /**
      * Number corresponds to GVL vendorListVersion. Version of the GVL used to create this TC
      * String.
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return the version number
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    int getVendorListVersion();
+    int getVendorListVersion() {
+        return 0;
+    }
 
     /**
      * The user’s consent value for each Purpose established on the legal basis of consent. The
      * Purposes are numerically identified and published in the Global Vendor List.
-     *
+     * <p>
      * An alias for PurposesAllowed
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return The integer values for each established Purpose.
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    IntIterable getPurposesConsent();
+    IntIterable getPurposesConsent() {
+        return null;
+    }
 
     /**
      * The vendor identifiers that have consent to process this users personal data. The vendor
      * identifiers are published in the GVL.
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return the vendor identifiers.
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    IntIterable getVendorConsent();
+    IntIterable getVendorConsent() {
+        return null;
+    }
 
     /**
      * Default consent for VendorIds not covered by a RangeEntry. VendorIds covered by a RangeEntry
      * have a consent value the opposite of DefaultConsent.
-     *
+     * <p>
      * This field is not used by Transparency and Consent String v2.0 specifications and always
      * returns false.
      *
-     * @since 1.0
-     * @throws TCStringDecodeException
      * @return all vendors that have consent to process this users personal data
+     * @throws TCStringDecodeException
+     * @since 1.0
      */
-    boolean getDefaultVendorConsent();
+    boolean getDefaultVendorConsent() {
+        return false;
+    }
 
     /**
      * From the corresponding field in the GVL that was used for obtaining consent. A new policy
      * version invalidates existing strings and requires CMPs to re-establish transparency and
      * consent from users.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return version of policy used within GVL
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    int getTcfPolicyVersion();
+    int getTcfPolicyVersion() {
+        return 0;
+    }
 
     /**
      * Whether the signals encoded in this TC String were from service-specific storage versus
      * global consesu.org shared storage.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return if signals are service-specific or global
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    boolean isServiceSpecific();
+    boolean isServiceSpecific() {
+        return false;
+    }
 
     /**
      * Setting this to field to true means that a publisher-run CMP – that is still IAB Europe
@@ -183,158 +208,184 @@ public interface TCString {
      * defined in the Policies (Appendix A section E). A CMP that services multiple publishers sets
      * this value to false.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return true if if the CMP used non-IAB standard stacks during consent gathering; false
-     *         otherwise.
+     * otherwise.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    boolean getUseNonStandardStacks();
+    boolean getUseNonStandardStacks() {
+        return false;
+    }
 
     /**
      * The TCF Policies designates certain Features as "special" which means a CMP must afford the
      * user a means to opt in to their use. These "Special Features" are published and numerically
      * identified in the Global Vendor List separately from normal Features.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return the Special Features the Vendor may utilize when performing some declared Purposes
-     *         processing.
+     * processing.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getSpecialFeatureOptIns();
+    IntIterable getSpecialFeatureOptIns() {
+        return null;
+    }
 
     /**
      * The Purpose’s transparency requirements are met for each Purpose on the legal basis of
      * legitimate interest and the user has not exercised their "Right to Object" to that Purpose.
-     *
+     * <p>
      * By default or if the user has exercised their "Right to Object" to a Purpose, the
      * corresponding identifier for that Purpose is set to false.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return The purpose identifiers for which the legal basis of legitimate interest are
-     *         established.
+     * established.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getPurposesLITransparency();
+    IntIterable getPurposesLITransparency() {
+        return null;
+    }
 
     /**
      * CMPs can use the PublisherCC field to indicate the legal jurisdiction the publisher is under
      * to help vendors determine whether the vendor needs consent for Purpose 1.
-     *
+     * <p>
      * In a globally-scoped TC string, this field must always have a value of false. When a CMP
      * encounters a globally-scoped TC String with PurposeOneTreatment set to true then it is
      * considered invalid and the CMP must discard it and re-establish transparency and consent.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return true if Purpose 1 was NOT disclosed; false otherwise.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    boolean getPurposeOneTreatment();
+    boolean getPurposeOneTreatment() {
+        return false;
+    }
 
     /**
      * The country code of the country that determines legislation of reference. Commonly, this
      * corresponds to the country in which the publisher’s business entity is established.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return ISO 3166-1 alpha-2 country code
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    String getPublisherCC();
+    String getPublisherCC() {
+        return "AA";
+    }
 
     /**
      * If a user exercises their "Right To Object" to a vendor’s processing based on a legitimate
      * interest.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return vendor identifiers that can process this user based on legitimate interest
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getVendorLegitimateInterest();
+    IntIterable getVendorLegitimateInterest() {
+        return null;
+    }
 
     /**
      * The restrictions of a vendor's data processing by a publisher within the context of the users
      * trafficking their digital property.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return the list of publisher restrictions.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    List<PublisherRestriction> getPublisherRestrictions();
+    List<PublisherRestriction> getPublisherRestrictions() {
+        return null;
+    }
 
     /**
      * Part of the OOB segments expressing that a Vendor is using legal bases outside of the TCF to
      * process personal data.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return A list of Vendors that the publisher allows to use out-of-band legal bases.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getAllowedVendors();
+    IntIterable getAllowedVendors() {
+        return null;
+    }
 
     /**
      * Part of the OOB segments expressing that a Vendor is using legal bases outside of the TCF to
      * process personal data.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return A list of Vendors that disclosed to the user.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getDisclosedVendors();
+    IntIterable getDisclosedVendors() {
+        return null;
+    }
 
     /**
      * Part of the Publisher Transparency and Consent segment of a TC String that publishers may use
      * to establish transparency with and receive consent from users for their own legal bases to
      * process personal data or to share with vendors if they so choose.
-     *
+     * <p>
      * The user's consent value for each Purpose established on the legal basis of consent, for the
      * publisher
-     *
+     * <p>
      * The Purposes are numerically identified and published in the Global Vendor List.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return the consent value for each Purpose
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getPubPurposesConsent();
+    IntIterable getPubPurposesConsent() {
+        return null;
+    }
 
     /**
      * Part of the Publisher Transparency and Consent segment of a TC String that publishers may use
      * to establish transparency with and receive consent from users for their own legal bases to
      * process personal data or to share with vendors if they so choose.
-     *
+     * <p>
      * The Purpose’s transparency requirements are met for each Purpose established on the legal
      * basis of legitimate interest and the user has not exercised their "Right to Object" to that
      * Purpose.
-     *
+     * <p>
      * By default or if the user has exercised their "Right to Object" to a Purpose, the
      * corresponding identifier for that Purpose is set to false.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return The consent value for each Purpose where legitimate interest was established.
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getPubPurposesLITransparency();
+    IntIterable getPubPurposesLITransparency() {
+        return null;
+    }
 
     /**
      * Part of the Publisher Transparency and Consent segment of a TC String that publishers may use
      * to establish transparency with and receive consent from users for their own legal bases to
      * process personal data or to share with vendors if they so choose.
-     *
+     * <p>
      * Custom purposes will be defined by the publisher and displayed to a user in a CMP user
      * interface.
      *
-     * @since 2.0
-     * @throws TCStringDecodeException
      * @return The established custom purpose consent values
+     * @throws TCStringDecodeException
+     * @since 2.0
      */
-    IntIterable getCustomPurposesConsent();
+    IntIterable getCustomPurposesConsent() {
+        return null;
+    }
 
     /**
      * Part of the Publisher Transparency and Consent segment of a TC String that publishers may use
      * to establish transparency with and receive consent from users for their own legal bases to
      * process personal data or to share with vendors if they so choose.
      *
-     * @throws TCStringDecodeException
      * @return The custom purpose consent values with established legitimate interest disclosure.
+     * @throws TCStringDecodeException
      */
-    IntIterable getCustomPurposesLITransparency();
+    IntIterable getCustomPurposesLITransparency() {
+        return null;
+    }
 }

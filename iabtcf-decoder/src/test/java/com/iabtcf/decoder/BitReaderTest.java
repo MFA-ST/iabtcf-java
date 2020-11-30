@@ -20,27 +20,24 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.ByteArrayInputStream;
-import java.nio.ByteBuffer;
-import org.threeten.bp.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import javax.xml.bind.DatatypeConverter;
-import java.util.BitSet;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.junit.Test;
-
-import com.iabtcf.decoder.TCString;
 import com.iabtcf.exceptions.ByteParseException;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.FieldDefs;
+import java8.util.function.Supplier;
+import java8.util.stream.Collectors;
+import java8.util.stream.RefStreams;
+import org.junit.Test;
+import org.threeten.bp.Instant;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+
+import javax.xml.bind.DatatypeConverter;
+import java.io.ByteArrayInputStream;
+import java.nio.ByteBuffer;
+import java.util.BitSet;
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public class BitReaderTest {
     Random r = new Random();
@@ -600,7 +597,7 @@ public class BitReaderTest {
         // 5 bytes
         long largeValue5 = 68_719_476_735L;
 
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        ByteBuffer buffer = ByteBuffer.allocate(Long.SIZE);
         buffer.putLong(0, largeValue5);
         byte[] arr5 = buffer.array();
         BitReader bv = new BitReader(arr5);
@@ -613,7 +610,7 @@ public class BitReaderTest {
         // remove the least significant byte
         long largeValue = largeValue5 >> 8;
 
-        buffer = ByteBuffer.allocate(Long.BYTES + Byte.BYTES);
+        buffer = ByteBuffer.allocate(Long.SIZE + Byte.SIZE);
         buffer.putLong(0, largeValue);
 
         // write the least significant byte subsequent byte
@@ -651,7 +648,12 @@ public class BitReaderTest {
 
     @Test
     public void tesCanReadEpochInstantFromDeciSecond() {
-        String bitString = Stream.generate(() -> "0").limit(36).collect(Collectors.joining());
+        String bitString = RefStreams.generate(new Supplier<String>() {
+            @Override
+            public String get() {
+                return "0";
+            }
+        }).limit(36).collect(Collectors.joining());
         BitReader bitVector = fromBitString(bitString);
         assertEquals(Instant.EPOCH, Instant.ofEpochMilli(bitVector.readBits36(1) * 100));
     }
@@ -697,9 +699,14 @@ public class BitReaderTest {
                     sub.length() == 8
                             ? sub
                             : sub
-                                    + Stream.generate(() -> "0")
-                                        .limit(8 - sub.length())
-                                        .collect(Collectors.joining());
+                            + RefStreams.generate(new Supplier<String>() {
+                                @Override
+                                public String get() {
+                                    return "0";
+                                }
+                            })
+                            .limit(8 - sub.length())
+                            .collect(Collectors.joining());
             bytes[j++] = (byte) (Integer.parseInt(sub, 2));
         }
         return bytes;

@@ -20,20 +20,14 @@ package com.iabtcf.utils;
  * #L%
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
+import java8.util.stream.IntStream;
+import java8.util.stream.Stream;
+import java8.util.stream.StreamSupport;
 import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 public class BitSetIntIterableTest {
     @Test
@@ -168,7 +162,7 @@ public class BitSetIntIterableTest {
     public void testToEmptyStream() {
         BitSet bs = new BitSet();
         BitSetIntIterable e = BitSetIntIterable.from(bs);
-        assertStreamEquals(new TreeSet<>(Arrays.asList()).stream(), e.toStream());
+        assertStreamEquals(StreamSupport.stream(new TreeSet<>(Arrays.asList())), e.toStream());
     }
 
     @Test
@@ -178,14 +172,14 @@ public class BitSetIntIterableTest {
         bs.set(4);
         bs.set(5);
         BitSetIntIterable e = BitSetIntIterable.from(bs);
-        assertStreamEquals(new TreeSet<>(Arrays.asList(1, 4, 5)).stream(), e.toStream());
+        assertStreamEquals(StreamSupport.stream(new TreeSet<>(Arrays.asList(1, 4, 5))), e.toStream());
         assertFalse(e.isEmpty());
     }
 
     @Test
     public void testOf() {
         BitSetIntIterable e = BitSetIntIterable.from(1, 2, 3);
-        assertStreamEquals(new TreeSet<>(Arrays.asList(1, 2, 3)).stream(), e.toStream());
+        assertStreamEquals(StreamSupport.stream(new TreeSet<>(Arrays.asList(1, 2, 3))), e.toStream());
     }
 
     @Test
@@ -198,7 +192,7 @@ public class BitSetIntIterableTest {
         //when
         BitSetIntIterable e = BitSetIntIterable.from(input);
         //then
-        assertStreamEquals(new TreeSet<>(Arrays.asList(1, 2, 3)).stream(), e.toStream());
+        assertStreamEquals(StreamSupport.stream(new TreeSet<>(Arrays.asList(1, 2, 3))), e.toStream());
     }
 
     @Test
@@ -226,7 +220,7 @@ public class BitSetIntIterableTest {
         for (Iterator<Integer> i = e.iterator(); i.hasNext();) {
             expected.contains(i.next());
         }
-        assertStreamEquals(expected.stream(), e.toStream());
+        assertStreamEquals(StreamSupport.stream(expected), e.toStream());
     }
 
 

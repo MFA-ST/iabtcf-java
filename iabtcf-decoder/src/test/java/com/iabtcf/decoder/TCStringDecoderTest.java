@@ -19,14 +19,14 @@ package com.iabtcf.decoder;
  * limitations under the License.
  * #L%
  */
-import static org.junit.Assert.assertNotNull;
-
-import javax.xml.bind.DatatypeConverter;
-
-import org.junit.Test;
 
 import com.iabtcf.exceptions.ByteParseException;
 import com.iabtcf.exceptions.UnsupportedVersionException;
+import org.junit.Test;
+
+import javax.xml.bind.DatatypeConverter;
+
+import static org.junit.Assert.assertNotNull;
 
 public class TCStringDecoderTest {
 
@@ -45,7 +45,7 @@ public class TCStringDecoderTest {
 
     @Test(expected = UnsupportedVersionException.class)
     public void shouldFailIfANonSupportedVersionIsPassed() {
-        String tcString = Base64.getUrlEncoder().encodeToString(new byte[] { 13 });
+        String tcString = DatatypeConverter.printBase64Binary(new byte[] { 13 });
         TCStringDecoder.decode(tcString);
     }
 

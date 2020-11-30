@@ -20,24 +20,19 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import org.threeten.bp.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.xml.bind.DatatypeConverter;
-import java.util.List;
-
-import org.junit.Test;
-
 import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.v2.PublisherRestriction;
 import com.iabtcf.v2.RestrictionType;
+import org.junit.Test;
+import org.threeten.bp.Instant;
+
+import javax.xml.bind.DatatypeConverter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
+import static org.junit.Assert.*;
 
 public class TCStringV2Test {
     private static TCString parse(String consentString) {
@@ -63,7 +58,7 @@ public class TCStringV2Test {
         for (Byte aByte : byteList) {
             bytes[i++] = aByte;
         }
-        return Base64.getUrlEncoder().encodeToString(bytes);
+        return DatatypeConverter.printBase64Binary(bytes);
     }
 
     /**

@@ -20,15 +20,15 @@ package com.iabtcf.utils;
  * #L%
  */
 
-import static org.junit.Assert.assertEquals;
+import java8.util.stream.Collectors;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class IntIterableUtilsTest {
     @Test
@@ -50,7 +50,7 @@ public class IntIterableUtilsTest {
         bs.set(512);
 
         IntIterable ii = BitSetIntIterable.from(bs);
-        Set<Integer> l = ii.toStream().boxed().collect(Collectors.toSet());
+        Set<Integer> l = ii.toStream().boxed().collect(Collectors.<Integer>toSet());
 
         assertEquals(new TreeSet<>(Arrays.asList(0, 1, 512)), l);
     }

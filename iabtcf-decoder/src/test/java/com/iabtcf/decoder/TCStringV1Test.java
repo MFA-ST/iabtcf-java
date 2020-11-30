@@ -19,18 +19,15 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import org.threeten.bp.Instant;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
+import java8.util.stream.Collectors;
+import java8.util.stream.IntStreams;
 import org.junit.Test;
+import org.threeten.bp.Instant;
+
+import java.util.Set;
+
+import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
+import static org.junit.Assert.*;
 
 public class TCStringV1Test {
 
@@ -109,9 +106,9 @@ public class TCStringV1Test {
         assertTrue(model.getVendorConsent().contains(30));
 
         Set<Integer> expectedVendorIds =
-                IntStream.concat(IntStream.rangeClosed(1, 25), IntStream.of(30))
+                IntStreams.concat(IntStreams.rangeClosed(1, 25), IntStreams.of(30))
                     .boxed()
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.<Integer>toSet());
         assertThat(model.getVendorConsent(), matchInts(expectedVendorIds));
 
         assertFalse(model.getVendorConsent().contains(26));
@@ -144,9 +141,9 @@ public class TCStringV1Test {
         assertTrue(model.getVendorConsent().contains(32));
 
         Set<Integer> expectedVendorIds =
-                IntStream.concat(IntStream.rangeClosed(2, 24), IntStream.rangeClosed(31, 32))
+                IntStreams.concat(IntStreams.rangeClosed(2, 24), IntStreams.rangeClosed(31, 32))
                     .boxed()
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.<Integer>toSet());
         assertThat(model.getVendorConsent(), matchInts(expectedVendorIds));
 
         // Vendors outside range [1, MaxVendorId] are not allowed
