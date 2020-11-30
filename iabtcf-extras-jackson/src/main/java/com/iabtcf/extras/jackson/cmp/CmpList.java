@@ -20,7 +20,7 @@ package com.iabtcf.extras.jackson.cmp;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

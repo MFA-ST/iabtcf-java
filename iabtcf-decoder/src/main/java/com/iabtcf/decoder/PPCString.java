@@ -29,8 +29,8 @@ import static com.iabtcf.utils.FieldDefs.V1_LAST_UPDATED;
 import static com.iabtcf.utils.FieldDefs.V1_VENDOR_LIST_VERSION;
 import static com.iabtcf.utils.FieldDefs.V1_VERSION;
 
-import java.time.Instant;
-import java.util.Base64;
+import org.threeten.bp.Instant;
+import javax.xml.bind.DatatypeConverter;
 import java.util.Objects;
 
 import com.iabtcf.exceptions.ByteParseException;
@@ -51,7 +51,7 @@ public class PPCString {
 
     public static PPCString decode(String consentString)
             throws IllegalArgumentException, ByteParseException, UnsupportedVersionException {
-        byte[] bytes = Base64.getUrlDecoder().decode(consentString);
+        byte[] bytes = DatatypeConverter.parseBase64Binary(consentString);
         return new PPCString(new BitReader(bytes));
     }
 

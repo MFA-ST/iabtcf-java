@@ -20,8 +20,8 @@ package com.iabtcf.extras.cmp;
  * #L%
  */
 
-import java.time.Instant;
-import java.util.Optional;
+import org.threeten.bp.Instant;
+import java8.util.Optional;
 
 public interface Cmp {
 

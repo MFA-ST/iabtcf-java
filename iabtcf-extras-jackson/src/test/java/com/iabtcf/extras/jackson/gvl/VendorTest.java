@@ -20,7 +20,7 @@ package com.iabtcf.extras.jackson.gvl;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.Arrays;
 
 import org.junit.Assert;

@@ -24,8 +24,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Instant;
-import java.util.Base64;
+import org.threeten.bp.Instant;
+import javax.xml.bind.DatatypeConverter;
 import java.util.Random;
 import java.util.stream.Collectors;
 

@@ -20,9 +20,9 @@ package com.iabtcf.extras.gvl;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.List;
-import java.util.Optional;
+import java8.util.Optional;
 
 public interface Vendor {
 

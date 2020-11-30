@@ -32,11 +32,11 @@ import static com.iabtcf.utils.FieldDefs.V1_VENDOR_LIST_VERSION;
 import static com.iabtcf.utils.FieldDefs.V1_VENDOR_MAX_VENDOR_ID;
 import static com.iabtcf.utils.FieldDefs.V1_VERSION;
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java8.util.Optional;
 
 import com.iabtcf.exceptions.InvalidRangeFieldException;
 import com.iabtcf.utils.BitReader;

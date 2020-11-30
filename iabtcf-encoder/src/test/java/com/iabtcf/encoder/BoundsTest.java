@@ -23,7 +23,7 @@ package com.iabtcf.encoder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.Before;

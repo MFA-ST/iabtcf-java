@@ -20,7 +20,7 @@ package com.iabtcf.encoder.exceptions;
  * #L%
  */
 
-import java.util.Optional;
+import java8.util.Optional;
 
 import com.iabtcf.utils.FieldDefs;
 

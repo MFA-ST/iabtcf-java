@@ -52,7 +52,7 @@ import static com.iabtcf.utils.FieldDefs.PPTC_CUSTOM_PURPOSES_LI_TRANSPARENCY;
 import static com.iabtcf.utils.FieldDefs.PPTC_PUB_PURPOSES_CONSENT;
 import static com.iabtcf.utils.FieldDefs.PPTC_PUB_PURPOSES_LI_TRANSPARENCY;
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -60,7 +60,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java8.util.Optional;
 
 import com.iabtcf.exceptions.InvalidRangeFieldException;
 import com.iabtcf.utils.BitReader;
@@ -229,7 +229,7 @@ class TCStringV2 implements TCString {
             RestrictionType restrictionType = RestrictionType.from(restrictionTypeId);
 
             BitSet bs = new BitSet();
-            currentPointer = vendorIdsFromRange(bbv, bs, currentPointer, Optional.empty());
+            currentPointer = vendorIdsFromRange(bbv, bs, currentPointer, Optional.<FieldDefs>empty());
             PublisherRestriction publisherRestriction =
                     new PublisherRestriction(purposeId, restrictionType, BitSetIntIterable.from(bs));
             publisherRestrictions.add(publisherRestriction);

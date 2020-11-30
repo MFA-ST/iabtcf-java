@@ -20,7 +20,7 @@ package com.iabtcf.encoder.utils;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 
 public class TestUtils {
 

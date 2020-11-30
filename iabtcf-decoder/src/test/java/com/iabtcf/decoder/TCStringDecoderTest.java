@@ -21,7 +21,7 @@ package com.iabtcf.decoder;
  */
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Base64;
+import javax.xml.bind.DatatypeConverter;
 
 import org.junit.Test;
 

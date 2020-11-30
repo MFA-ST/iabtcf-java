@@ -25,7 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

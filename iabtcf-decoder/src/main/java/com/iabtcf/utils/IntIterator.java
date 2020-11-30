@@ -21,7 +21,7 @@ package com.iabtcf.utils;
  */
 
 import java.util.Iterator;
-import java.util.PrimitiveIterator.OfInt;
+import java8.util.PrimitiveIterator.OfInt;
 
 public interface IntIterator extends Iterator<Integer>, OfInt {
 }

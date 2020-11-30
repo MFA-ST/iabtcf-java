@@ -28,7 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.time.Instant;
+import org.threeten.bp.Instant;
 
 public class CmpListTest {
 

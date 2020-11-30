@@ -23,7 +23,7 @@ package com.iabtcf.decoder;
 import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
-import java.util.Base64;
+import javax.xml.bind.DatatypeConverter;
 
 import org.junit.Test;
 

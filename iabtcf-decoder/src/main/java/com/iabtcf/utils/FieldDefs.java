@@ -20,7 +20,7 @@ package com.iabtcf.utils;
  * #L%
  */
 
-import java.util.function.Function;
+import java8.util.function.Function;
 
 /**
  * This enum defines all V1 and V2 consent string fields with their offsets and lengths. Since some
@@ -144,7 +144,7 @@ public enum FieldDefs {
 
         @Override
         public Integer apply(BitReader t) {
-            return Byte.toUnsignedInt(t.readBits6(FieldDefs.V1_PPC_NUMBER_CUSTOM_PURPOSES.getOffset(t)));
+            return t.readBits6(FieldDefs.V1_PPC_NUMBER_CUSTOM_PURPOSES.getOffset(t)) &0xff;
         }
 
         @Override

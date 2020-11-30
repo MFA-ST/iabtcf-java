@@ -21,7 +21,7 @@ package com.iabtcf.v2;
  */
 
 import java.util.Objects;
-import java.util.StringJoiner;
+import java8.util.StringJoiner;
 
 import com.iabtcf.utils.IntIterable;
 import com.iabtcf.utils.IntIterator;

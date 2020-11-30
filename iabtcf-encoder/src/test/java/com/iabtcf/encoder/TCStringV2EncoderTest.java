@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;

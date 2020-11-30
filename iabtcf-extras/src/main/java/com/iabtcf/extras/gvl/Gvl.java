@@ -20,7 +20,7 @@ package com.iabtcf.extras.gvl;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.List;
 
 public interface Gvl {

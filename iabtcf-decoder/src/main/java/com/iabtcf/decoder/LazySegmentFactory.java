@@ -21,7 +21,7 @@ package com.iabtcf.decoder;
  */
 
 import java.io.InputStream;
-import java.util.function.Supplier;
+import java8.util.function.Supplier;
 
 /**
  * Given a ASCII String of the form XXXX.YYYYY.ZZZZ..., this class returns each segment as an

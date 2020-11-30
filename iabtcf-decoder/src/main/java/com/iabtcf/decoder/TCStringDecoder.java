@@ -20,7 +20,7 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import java.util.Base64;
+import javax.xml.bind.DatatypeConverter;
 import java.util.EnumSet;
 
 import com.iabtcf.exceptions.ByteParseException;
@@ -34,7 +34,7 @@ class TCStringDecoder {
         // InputStream is = DECODER.wrap(sis);
         //
         //
-        byte[] bytes = Base64.getUrlDecoder().decode(base64UrlEncodedString);
+        byte[] bytes = DatatypeConverter.parseBase64Binary(base64UrlEncodedString);
         return new BitReader(bytes);
     }
 

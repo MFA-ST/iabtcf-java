@@ -54,7 +54,7 @@ import static com.iabtcf.utils.FieldDefs.V1_VENDOR_LIST_VERSION;
 import static com.iabtcf.utils.FieldDefs.V1_VERSION;
 
 import java.time.Clock;
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

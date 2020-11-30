@@ -22,8 +22,8 @@ package com.iabtcf.extras.jackson.cmp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.Instant;
-import java.util.Optional;
+import org.threeten.bp.Instant;
+import java8.util.Optional;
 
 public class Cmp implements com.iabtcf.extras.cmp.Cmp {
 

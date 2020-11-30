@@ -20,7 +20,7 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.List;
 
 import com.iabtcf.exceptions.ByteParseException;

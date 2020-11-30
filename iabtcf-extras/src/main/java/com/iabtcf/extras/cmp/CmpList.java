@@ -20,7 +20,7 @@ package com.iabtcf.extras.cmp;
  * #L%
  */
 
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.util.List;
 
 public interface CmpList {

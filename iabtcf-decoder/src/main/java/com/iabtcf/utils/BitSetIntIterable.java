@@ -20,6 +20,9 @@ package com.iabtcf.utils;
  * #L%
  */
 
+import java8.util.function.IntConsumer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.NoSuchElementException;
@@ -59,7 +62,9 @@ public class BitSetIntIterable extends IntIterable {
 
     public static BitSetIntIterable from(final Collection<Integer> values) {
         BitSet bs = new BitSet();
-        values.forEach(bs::set);
+        for(Integer value : values){
+            bs.set(value);
+        }
         return new BitSetIntIterable(bs);
     }
 
@@ -120,6 +125,11 @@ public class BitSetIntIterable extends IntIterable {
             }
 
             @Override
+            public void remove() {
+                throw new NotImplementedException();
+            }
+
+            @Override
             public int nextInt() {
                 if (!this.hasNext()) {
                     throw new NoSuchElementException();
@@ -127,6 +137,11 @@ public class BitSetIntIterable extends IntIterable {
                 int next = currentIndex;
                 currentIndex = bs.nextSetBit(currentIndex + 1);
                 return next;
+            }
+
+            @Override
+            public void forEachRemaining(IntConsumer intConsumer) {
+                throw new NotImplementedException();
             }
         };
     }

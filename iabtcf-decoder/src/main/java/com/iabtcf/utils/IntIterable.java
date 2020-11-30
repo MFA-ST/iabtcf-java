@@ -3,10 +3,14 @@ package com.iabtcf.utils;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
+
+import java8.util.J8Arrays;
+import java8.util.Spliterator;
+import java8.util.Spliterators;
+import java8.util.function.IntPredicate;
+import java8.util.stream.IntStream;
+import java8.util.stream.StreamSupport;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /*-
  * #%L
@@ -61,15 +65,27 @@ public abstract class IntIterable implements Iterable<Integer> {
     }
 
     public boolean containsAll(int... source) {
-        return Arrays
+        return J8Arrays
                 .stream(source)
-                .allMatch(this::contains);
+                .allMatch(new IntPredicate(){
+
+                    @Override
+                    public boolean test(int i) {
+                        return contains(i);
+                    }
+                });
     }
 
     public boolean containsAny(int... source) {
-        return Arrays
+        return J8Arrays
                 .stream(source)
-                .anyMatch(this::contains);
+                .anyMatch(new IntPredicate(){
+
+                    @Override
+                    public boolean test(int i) {
+                        return contains(i);
+                    }
+                });
     }
 
     public abstract boolean contains(int value);
@@ -87,6 +103,11 @@ public abstract class IntIterable implements Iterable<Integer> {
             @Override
             public Integer next() {
                 return internal.next();
+            }
+
+            @Override
+            public void remove() {
+               throw new NotImplementedException();
             }
         };
     }

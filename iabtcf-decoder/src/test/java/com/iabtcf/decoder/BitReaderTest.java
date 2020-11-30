@@ -26,10 +26,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
-import java.time.Instant;
+import org.threeten.bp.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Base64;
+import javax.xml.bind.DatatypeConverter;
 import java.util.BitSet;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -92,7 +92,7 @@ public class BitReaderTest {
         // String str = "BOvalCcOvZ7NhABABBAAABAAAAAAEA";
         String str = "BOvalCcOvZ7NaABABBAAABAAAAAAEA";
 
-        byte[] bytes = Base64.getUrlDecoder().decode(str);
+        byte[] bytes = DatatypeConverter.parseBase64Binary(str);
 
         BitReader bv = new BitReader(bytes);
         assertEquals(1, bv.readBits6(0));
@@ -139,7 +139,7 @@ public class BitReaderTest {
     public void testReadBits6VersionField() {
         String str = "BOvalCcOvZ7NhABABBAAABAAAAAAEA";
 
-        byte[] bytes = Base64.getUrlDecoder().decode(str);
+        byte[] bytes = DatatypeConverter.parseBase64Binary(str);
 
         BitReader bv = new BitReader(bytes);
         assertEquals(1, bv.readBits6(0));
@@ -571,7 +571,7 @@ public class BitReaderTest {
     public void testBitsetVendors() {
         String str = "BOvalCcOvZ7NaABABBAAABAAAAAAxwkA";
 
-        byte[] bytes = Base64.getUrlDecoder().decode(str);
+        byte[] bytes = DatatypeConverter.parseBase64Binary(str);
 
         BitReader bv = new BitReader(bytes);
         BitSet bs = bv.readBitSet(173, 12);
