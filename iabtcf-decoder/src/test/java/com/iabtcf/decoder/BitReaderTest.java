@@ -21,6 +21,7 @@ package com.iabtcf.decoder;
  */
 
 import com.iabtcf.exceptions.ByteParseException;
+import com.iabtcf.utils.Base64;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.FieldDefs;
 import java8.util.function.Supplier;
@@ -31,7 +32,6 @@ import org.threeten.bp.Instant;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
@@ -89,7 +89,7 @@ public class BitReaderTest {
         // String str = "BOvalCcOvZ7NhABABBAAABAAAAAAEA";
         String str = "BOvalCcOvZ7NaABABBAAABAAAAAAEA";
 
-        byte[] bytes = DatatypeConverter.parseBase64Binary(str);
+        byte[] bytes = Base64.getUrlDecoder().decode(str);
 
         BitReader bv = new BitReader(bytes);
         assertEquals(1, bv.readBits6(0));
@@ -136,7 +136,7 @@ public class BitReaderTest {
     public void testReadBits6VersionField() {
         String str = "BOvalCcOvZ7NhABABBAAABAAAAAAEA";
 
-        byte[] bytes = DatatypeConverter.parseBase64Binary(str);
+        byte[] bytes = Base64.getUrlDecoder().decode(str);
 
         BitReader bv = new BitReader(bytes);
         assertEquals(1, bv.readBits6(0));
@@ -568,7 +568,7 @@ public class BitReaderTest {
     public void testBitsetVendors() {
         String str = "BOvalCcOvZ7NaABABBAAABAAAAAAxwkA";
 
-        byte[] bytes = DatatypeConverter.parseBase64Binary(str);
+        byte[] bytes = Base64.getUrlDecoder().decode(str);
 
         BitReader bv = new BitReader(bytes);
         BitSet bs = bv.readBitSet(173, 12);

@@ -20,8 +20,10 @@ package com.iabtcf.encoder;
  * #L%
  */
 
+import java8.util.PrimitiveIterator.OfLong;
+import java8.util.function.LongConsumer;
+
 import java.util.Arrays;
-import java.util.PrimitiveIterator.OfLong;
 
 class OfLongIterable {
     private long[] array = new long[10];
@@ -53,8 +55,18 @@ class OfLongIterable {
             }
 
             @Override
+            public void remove() {
+
+            }
+
+            @Override
             public long nextLong() {
                 return OfLongIterable.this.array[i++];
+            }
+
+            @Override
+            public void forEachRemaining(LongConsumer longConsumer) {
+
             }
         };
     }

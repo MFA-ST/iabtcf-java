@@ -20,24 +20,17 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import static com.iabtcf.utils.FieldDefs.V1_CMP_ID;
-import static com.iabtcf.utils.FieldDefs.V1_CMP_VERSION;
-import static com.iabtcf.utils.FieldDefs.V1_CONSENT_LANGUAGE;
-import static com.iabtcf.utils.FieldDefs.V1_CONSENT_SCREEN;
-import static com.iabtcf.utils.FieldDefs.V1_CREATED;
-import static com.iabtcf.utils.FieldDefs.V1_LAST_UPDATED;
-import static com.iabtcf.utils.FieldDefs.V1_VENDOR_LIST_VERSION;
-import static com.iabtcf.utils.FieldDefs.V1_VERSION;
-
-import org.threeten.bp.Instant;
-import javax.xml.bind.DatatypeConverter;
-import java.util.Objects;
-
 import com.iabtcf.exceptions.ByteParseException;
 import com.iabtcf.exceptions.UnsupportedVersionException;
+import com.iabtcf.utils.Base64;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.FieldDefs;
 import com.iabtcf.utils.IntIterable;
+import org.threeten.bp.Instant;
+
+import java.util.Objects;
+
+import static com.iabtcf.utils.FieldDefs.*;
 
 /**
  * Parses TCFv1 Publisher Purposes Consent String Format
@@ -51,7 +44,7 @@ public class PPCString {
 
     public static PPCString decode(String consentString)
             throws IllegalArgumentException, ByteParseException, UnsupportedVersionException {
-        byte[] bytes = DatatypeConverter.parseBase64Binary(consentString);
+        byte[] bytes = Base64.getUrlDecoder().decode(consentString);
         return new PPCString(new BitReader(bytes));
     }
 

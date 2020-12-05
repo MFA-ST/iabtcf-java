@@ -20,13 +20,13 @@ package com.iabtcf.decoder;
  * #L%
  */
 
+import com.iabtcf.utils.Base64;
 import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.v2.PublisherRestriction;
 import com.iabtcf.v2.RestrictionType;
 import org.junit.Test;
 import org.threeten.bp.Instant;
 
-import javax.xml.bind.DatatypeConverter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +58,7 @@ public class TCStringV2Test {
         for (Byte aByte : byteList) {
             bytes[i++] = aByte;
         }
-        return DatatypeConverter.printBase64Binary(bytes);
+        return Base64.getUrlEncoder().encodeToString(bytes);
     }
 
     /**

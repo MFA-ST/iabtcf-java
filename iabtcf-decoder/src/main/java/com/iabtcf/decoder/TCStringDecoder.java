@@ -20,13 +20,13 @@ package com.iabtcf.decoder;
  * #L%
  */
 
-import javax.xml.bind.DatatypeConverter;
-import java.util.EnumSet;
-
 import com.iabtcf.exceptions.ByteParseException;
 import com.iabtcf.exceptions.UnsupportedVersionException;
+import com.iabtcf.utils.Base64;
 import com.iabtcf.utils.BitReader;
 import com.iabtcf.utils.FieldDefs;
+
+import java.util.EnumSet;
 
 class TCStringDecoder {
     static BitReader vectorFromString(String base64UrlEncodedString) {
@@ -34,7 +34,7 @@ class TCStringDecoder {
         // InputStream is = DECODER.wrap(sis);
         //
         //
-        byte[] bytes = DatatypeConverter.parseBase64Binary(base64UrlEncodedString);
+        byte[] bytes = Base64.getUrlDecoder().decode(base64UrlEncodedString);
         return new BitReader(bytes);
     }
 

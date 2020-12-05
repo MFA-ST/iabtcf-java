@@ -20,13 +20,12 @@ package com.iabtcf.decoder;
  * #L%
  */
 
+import com.iabtcf.utils.Base64;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.*;
@@ -113,32 +112,25 @@ public class SegmentInputStreamTest {
 
     @Test
     public void testSegmentBase64() throws IOException {
-        String src = DatatypeConverter.printBase64Binary("hello".getBytes(StandardCharsets.US_ASCII)) + "." +
-                DatatypeConverter.printBase64Binary("world".getBytes(StandardCharsets.US_ASCII));
-
-        StringWriter sw = new StringWriter();
-        StringBuffer sb = sw.getBuffer();
+        Base64.Encoder encoder = Base64.getUrlEncoder();
+        String src = encoder.encodeToString("hello".getBytes(StandardCharsets.US_ASCII)) + "."
+                + encoder.encodeToString("world".getBytes(StandardCharsets.US_ASCII));
+        Base64.Decoder decoder = Base64.getDecoder();
         SegmentInputStream sis = newSegmentInputStream(src);
 
-        IOUtils.copy(sis, sw, StandardCharsets.US_ASCII);
-        String text = new String(DatatypeConverter.parseBase64Binary(sw.toString()), StandardCharsets.US_ASCII);
+        String text = IOUtils.toString(decoder.wrap(sis), StandardCharsets.US_ASCII);
         assertEquals("hello", text);
 
         assertTrue(sis.hasNextSegment());
         sis = newSegmentInputStream(src, sis.segmentEnd() + 1);
-        sb.setLength(0);
-        IOUtils.copy(sis, sw, StandardCharsets.US_ASCII);
 
-        text = new String(DatatypeConverter.parseBase64Binary(sw.toString()), StandardCharsets.US_ASCII);
+        text = IOUtils.toString(decoder.wrap(sis), StandardCharsets.US_ASCII);
         assertEquals("world", text);
 
         assertFalse(sis.hasNextSegment());
 
         sis = newSegmentInputStream(src, sis.segmentEnd() + 1);
-        sb.setLength(0);
-        IOUtils.copy(sis, sw, StandardCharsets.US_ASCII);
-
-        text = new String(DatatypeConverter.parseBase64Binary(sw.toString()), StandardCharsets.US_ASCII);
+        text = IOUtils.toString(decoder.wrap(sis), StandardCharsets.US_ASCII);
         assertEquals("", text);
     }
 

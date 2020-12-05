@@ -22,9 +22,8 @@ package com.iabtcf.decoder;
 
 import com.iabtcf.exceptions.ByteParseException;
 import com.iabtcf.exceptions.UnsupportedVersionException;
+import com.iabtcf.utils.Base64;
 import org.junit.Test;
-
-import javax.xml.bind.DatatypeConverter;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -45,7 +44,7 @@ public class TCStringDecoderTest {
 
     @Test(expected = UnsupportedVersionException.class)
     public void shouldFailIfANonSupportedVersionIsPassed() {
-        String tcString = DatatypeConverter.printBase64Binary(new byte[] { 13 });
+        String tcString = Base64.getUrlEncoder().encodeToString(new byte[] { 13 });
         TCStringDecoder.decode(tcString);
     }
 

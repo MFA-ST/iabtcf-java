@@ -20,18 +20,18 @@ package com.iabtcf.encoder;
  * #L%
  */
 
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import org.threeten.bp.Instant;
-import javax.xml.bind.DatatypeConverter;
-import java.util.BitSet;
-import java.util.PrimitiveIterator.OfLong;
-
 import com.iabtcf.encoder.exceptions.ValueOverflowException;
+import com.iabtcf.utils.Base64;
 import com.iabtcf.utils.FieldDefs;
 import com.iabtcf.utils.IntIterable;
 import com.iabtcf.utils.IntIterator;
+import java8.util.PrimitiveIterator.OfLong;
+import org.threeten.bp.Instant;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.BitSet;
 
 /**
  * Provides the ability to construct a byte array that is iabtcf compliant. The BitWriter provides
