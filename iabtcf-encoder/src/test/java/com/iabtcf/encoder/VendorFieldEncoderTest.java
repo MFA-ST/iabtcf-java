@@ -21,10 +21,7 @@ package com.iabtcf.encoder;
  */
 
 import com.iabtcf.decoder.TCString;
-import com.iabtcf.utils.BitReader;
-import com.iabtcf.utils.BitSetIntIterable;
-import com.iabtcf.utils.FieldDefs;
-import com.iabtcf.utils.IntIterable;
+import com.iabtcf.utils.*;
 import java8.util.stream.Collectors;
 import org.junit.Test;
 import org.threeten.bp.Instant;
@@ -295,7 +292,7 @@ public class VendorFieldEncoderTest {
             .defaultConsent(true)
             .emitRangeEncoding(true)
             .setMaxVendorId(3)
-            .add(BitSetIntIterable.from(1, 3).toStream().boxed().collect(Collectors.toList()));
+            .add(BitSetIntIterable.from(1, 3).toStream().boxed().collect(Collectors.<Integer>toList()));
 
         VendorFieldEncoder bfe = new VendorFieldEncoder(proto);
         bfe.add(2);

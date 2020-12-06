@@ -26,11 +26,12 @@ import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.utils.FieldDefs;
 import com.iabtcf.utils.IntIterable;
 import com.iabtcf.v2.SegmentType;
+import java8.util.function.Predicate;
 import java8.util.stream.Collectors;
-import java8.util.stream.Stream;
+import java8.util.stream.RefStreams;
+import org.threeten.bp.Clock;
 import org.threeten.bp.Instant;
 
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,25 +41,29 @@ import static com.iabtcf.encoder.Bounds.checkBounds;
 import static com.iabtcf.encoder.Bounds.checkBoundsBits;
 import static com.iabtcf.utils.FieldDefs.*;
 
-public interface TCStringEncoder {
+public abstract class TCStringEncoder {
 
     /**
      * Returns a base64 url encoded iabtcf compliant consent string
      *
      * @throws IllegalArgumentException if the version is invalid
-     * @throws ValueOverflowException if an attempt was made to encode a value beyond it's limit.
+     * @throws ValueOverflowException   if an attempt was made to encode a value beyond it's limit.
      */
-    String encode() throws IllegalArgumentException, ValueOverflowException;
+    String encode() throws IllegalArgumentException, ValueOverflowException {
+        return null;
+    }
 
     /**
      * Returns a TCString representation
      *
      * @throws IllegalArgumentException if the version is invalid
-     * @throws ValueOverflowException if an attempt was made to encode a value beyond it's limit.
+     * @throws ValueOverflowException   if an attempt was made to encode a value beyond it's limit.
      */
-    TCString toTCString() throws IllegalArgumentException, ValueOverflowException;
+    TCString toTCString() throws IllegalArgumentException, ValueOverflowException {
+        return null;
+    }
 
-    static class TCStringEncoderV1 implements TCStringEncoder {
+    static class TCStringEncoderV1 extends TCStringEncoder {
         private final int version;
         private final Instant created;
         private final Instant updated;
@@ -117,7 +122,7 @@ public interface TCStringEncoder {
         }
     }
 
-    static class TCStringEncoderV2 implements TCStringEncoder {
+    static class TCStringEncoderV2 extends TCStringEncoder {
         private final int version;
         private final Instant created;
         private final Instant updated;
@@ -291,9 +296,14 @@ public interface TCStringEncoder {
 
         @Override
         public String encode() {
-            return Stream
+            return RefStreams
                 .of(encodeCoreString(), encodeDisclosedVendors(), encodeAllowedVendors(), encodePPTC())
-                .filter(str -> str != null && !str.isEmpty())
+                .filter(new Predicate<String>() {
+                    @Override
+                    public boolean test(String str) {
+                        return str != null && !str.isEmpty();
+                    }
+                })
                 .collect(Collectors.joining("."));
         }
 
@@ -303,7 +313,7 @@ public interface TCStringEncoder {
         }
     }
 
-    public static class Builder implements TCStringEncoder {
+    public static class Builder extends TCStringEncoder {
         private int version = 0;
         private Instant created = Instant.now(Clock.systemUTC());
         private Instant updated = created;

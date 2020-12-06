@@ -20,11 +20,11 @@ package com.iabtcf.encoder;
  * #L%
  */
 
-import java.util.List;
-
 import com.iabtcf.encoder.exceptions.ValueOverflowException;
 import com.iabtcf.utils.BitSetIntIterable;
 import com.iabtcf.utils.FieldDefs;
+
+import java.util.List;
 
 class Bounds {
     /**
@@ -93,7 +93,7 @@ class Bounds {
     }
 
     private static long checkBounds(long value, long max, FieldDefs field) {
-        if (Long.compareUnsigned(value, max) > 0) {
+        if (value + Long.MIN_VALUE > max + Long.MIN_VALUE) {
             throw new ValueOverflowException(value, max, field);
         }
 

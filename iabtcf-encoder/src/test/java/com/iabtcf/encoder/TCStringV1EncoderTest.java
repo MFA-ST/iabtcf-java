@@ -20,21 +20,18 @@ package com.iabtcf.encoder;
  * #L%
  */
 
-import static com.iabtcf.encoder.utils.TestUtils.toDeci;
-import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.threeten.bp.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.BitSet;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.iabtcf.decoder.TCString;
 import com.iabtcf.utils.BitSetIntIterable;
+import org.junit.Assert;
+import org.junit.Test;
+import org.threeten.bp.Instant;
+import org.threeten.bp.temporal.ChronoUnit;
+
+import java.util.BitSet;
+
+import static com.iabtcf.encoder.utils.TestUtils.toDeci;
+import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
+import static org.junit.Assert.*;
 
 public class TCStringV1EncoderTest {
 

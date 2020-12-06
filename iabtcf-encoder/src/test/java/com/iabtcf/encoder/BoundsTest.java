@@ -20,20 +20,18 @@ package com.iabtcf.encoder;
  * #L%
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import org.threeten.bp.Instant;
-import java.time.temporal.ChronoUnit;
-
+import com.iabtcf.encoder.exceptions.ValueOverflowException;
+import com.iabtcf.utils.BitSetIntIterable;
+import com.iabtcf.utils.FieldDefs;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.threeten.bp.Instant;
+import org.threeten.bp.temporal.ChronoUnit;
 
-import com.iabtcf.encoder.exceptions.ValueOverflowException;
-import com.iabtcf.utils.BitSetIntIterable;
-import com.iabtcf.utils.FieldDefs;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BoundsTest {
     private final Instant created = Instant.now();

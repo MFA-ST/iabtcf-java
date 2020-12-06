@@ -38,7 +38,7 @@ public abstract class TCString {
      * @throws UnsupportedVersionException invalid version field
      * @throws IllegalArgumentException if consentString is not in valid Base64 scheme
      */
-    static TCString decode(String consentString, DecoderOption... options)
+    public static TCString decode(String consentString, DecoderOption... options)
             throws IllegalArgumentException, ByteParseException, UnsupportedVersionException {
         return TCStringDecoder.decode(consentString, options);
     }
@@ -50,7 +50,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    int getVersion() {
+    public int getVersion() {
         return 0;
     }
 
@@ -61,7 +61,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    Instant getCreated() {
+    public Instant getCreated() {
         return Instant.MIN;
     }
 
@@ -72,7 +72,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    Instant getLastUpdated() {
+    public Instant getLastUpdated() {
         return Instant.MAX;
     }
 
@@ -83,7 +83,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    int getCmpId() {
+    public int getCmpId() {
         return 0;
     }
 
@@ -94,7 +94,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    int getCmpVersion() {
+    public int getCmpVersion() {
         return 0;
     }
 
@@ -109,7 +109,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    int getConsentScreen() {
+    public int getConsentScreen() {
         return 0;
     }
 
@@ -120,7 +120,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    String getConsentLanguage() {
+    public String getConsentLanguage() {
         return "AA";
     }
 
@@ -132,7 +132,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    int getVendorListVersion() {
+    public int getVendorListVersion() {
         return 0;
     }
 
@@ -146,7 +146,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    IntIterable getPurposesConsent() {
+    public IntIterable getPurposesConsent() {
         return null;
     }
 
@@ -158,7 +158,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    IntIterable getVendorConsent() {
+    public IntIterable getVendorConsent() {
         return null;
     }
 
@@ -173,7 +173,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 1.0
      */
-    boolean getDefaultVendorConsent() {
+    public boolean getDefaultVendorConsent() {
         return false;
     }
 
@@ -186,7 +186,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    int getTcfPolicyVersion() {
+    public int getTcfPolicyVersion() {
         return 0;
     }
 
@@ -198,7 +198,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    boolean isServiceSpecific() {
+    public boolean isServiceSpecific() {
         return false;
     }
 
@@ -213,7 +213,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    boolean getUseNonStandardStacks() {
+    public boolean getUseNonStandardStacks() {
         return false;
     }
 
@@ -227,7 +227,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getSpecialFeatureOptIns() {
+    public IntIterable getSpecialFeatureOptIns() {
         return null;
     }
 
@@ -243,7 +243,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getPurposesLITransparency() {
+    public IntIterable getPurposesLITransparency() {
         return null;
     }
 
@@ -259,7 +259,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    boolean getPurposeOneTreatment() {
+    public boolean getPurposeOneTreatment() {
         return false;
     }
 
@@ -271,7 +271,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    String getPublisherCC() {
+    public String getPublisherCC() {
         return "AA";
     }
 
@@ -283,7 +283,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getVendorLegitimateInterest() {
+    public IntIterable getVendorLegitimateInterest() {
         return null;
     }
 
@@ -295,7 +295,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    List<PublisherRestriction> getPublisherRestrictions() {
+    public List<PublisherRestriction> getPublisherRestrictions() {
         return null;
     }
 
@@ -307,7 +307,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getAllowedVendors() {
+    public IntIterable getAllowedVendors() {
         return null;
     }
 
@@ -319,7 +319,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getDisclosedVendors() {
+    public IntIterable getDisclosedVendors() {
         return null;
     }
 
@@ -337,7 +337,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getPubPurposesConsent() {
+    public IntIterable getPubPurposesConsent() {
         return null;
     }
 
@@ -357,7 +357,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getPubPurposesLITransparency() {
+    public IntIterable getPubPurposesLITransparency() {
         return null;
     }
 
@@ -373,7 +373,7 @@ public abstract class TCString {
      * @throws TCStringDecodeException
      * @since 2.0
      */
-    IntIterable getCustomPurposesConsent() {
+    public IntIterable getCustomPurposesConsent() {
         return null;
     }
 
@@ -385,7 +385,7 @@ public abstract class TCString {
      * @return The custom purpose consent values with established legitimate interest disclosure.
      * @throws TCStringDecodeException
      */
-    IntIterable getCustomPurposesLITransparency() {
+    public IntIterable getCustomPurposesLITransparency() {
         return null;
     }
 }

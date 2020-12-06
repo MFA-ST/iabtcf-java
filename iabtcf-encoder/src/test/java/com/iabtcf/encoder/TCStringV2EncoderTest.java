@@ -1,12 +1,20 @@
 package com.iabtcf.encoder;
 
+import com.iabtcf.decoder.TCString;
+import com.iabtcf.utils.BitSetIntIterable;
+import com.iabtcf.v2.PublisherRestriction;
+import com.iabtcf.v2.RestrictionType;
+import org.junit.Before;
+import org.junit.Test;
+import org.threeten.bp.Instant;
+import org.threeten.bp.temporal.ChronoUnit;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.iabtcf.encoder.utils.TestUtils.toDeci;
 import static com.iabtcf.test.utils.IntIterableMatcher.matchInts;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /*-
  * #%L
@@ -27,19 +35,6 @@ import static org.junit.Assert.assertTrue;
  * limitations under the License.
  * #L%
  */
-
-import org.threeten.bp.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import com.iabtcf.decoder.TCString;
-import com.iabtcf.utils.BitSetIntIterable;
-import com.iabtcf.v2.PublisherRestriction;
-import com.iabtcf.v2.RestrictionType;
 
 public class TCStringV2EncoderTest {
 
